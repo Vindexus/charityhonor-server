@@ -1,0 +1,81 @@
+extends ../layout
+block content
+  .jumbotron.mb-4
+    h1.display-6 Donate to charity in honor of #{drive.reddit_author}'s #{drive.reddit_type}
+    p.lead
+      | Donations will go to a charity of #{drive.reddit_author}'s choice. 
+      a(href="https://www.reddit.com/#{drive.reddit_permalink}") View their #{drive.reddit_type}
+
+
+  form#hidden-form(action="/donations" method="POST")
+    input(type="hidden" name="pandapay_token" value="")
+    input(type="hidden" name="drive_id" value=drive.id)
+    input(type="hidden" name="amount" value="")
+    input(type="hidden" name="email" value="")
+    input(type="hidden" name="reddit_username" value="")
+  form#donation-form.needs-validation(novalidate onsubmit="submitPanda(event)" action="/" method="POST")
+    h4.mb3 Donation Information
+    .row
+      .col-md-5.mb-3
+        label.form-label Amount*
+        .input-group
+          .input-group-prepend
+            .input-group-text $
+          input.form-control(type="number" name="amount" required)
+          .input-group-append
+            .input-group-text USD
+        .invalid-feedback
+          | Amount is required
+
+    .row
+      .col-md-5.mb-3
+        label.form-label(for='donation-email') Email*
+        input#cc-donation-email.form-control(type='text' required)
+        .small.help-text Your receipt will be sent here
+        .invalid-feedback Email is required
+
+
+    .row
+      .col-md-5.mb-3
+        label.form-label Your Reddit Username
+        input.form-control(type="text" name="reddit_username")
+        small.help-text You will be PM'd a link to confirm. Leave blank to be anonymous.
+
+    button.d-none(type='submit') Donate
+
+  form#panda_cc_form(novalidate)
+    h4.mb3 Payment Information
+    .row
+      .col-md-4.mb-3
+        label(for='cc-fname') First Name*
+        input#cc-fname.form-control(type='text', placeholder='', required='' data-panda='first_name')
+        small.text-muted
+        .invalid-feedback
+      .col-md-4.mb-3
+        label(for='cc-lname') Last Name*
+        input#cc-lname.form-control(type='text', placeholder='', required='' data-panda='last_name')
+        small.text-muted
+        .invalid-feedback
+    .row
+      .col-md-8.mb-3
+        label(for='cc-number') Credit card number*
+        input#cc-number.form-control(type='text', placeholder='', required='' data-panda='credit_card')
+        .invalid-feedback
+    .row
+      .col-md-4.mb-3
+        label(for='cc-expiration') Expiration*
+        input#cc-expiration.form-control(type='text', placeholder='', required='' data-panda='expiration')
+        small.help-text MM/YYYY
+        .invalid-feedback
+      .col-md-4.mb-3
+        label(for='cc-expiration') CVV*
+        input#cc-cvv.form-control(type='text', placeholder='', required='' data-panda='cvv')
+        .invalid-feedback
+
+    hr.mb-4
+    button.mb-4.btn.btn-primary.btn-lg.btn-block(type='submit' role="panda-submit") Donate
+    div.mb-4
+      | &nbsp;
+
+  script(src="//d2t45z63lq9zlh.cloudfront.net/panda-v0.0.5.min.js")
+  script(src="/js/donate.js")
