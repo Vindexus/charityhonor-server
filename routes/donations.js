@@ -15,13 +15,16 @@ router.post('/', (req, res) => {
 
     body.eid = drive.panda_destination_eid || ""
     body.drive_id = drive.id
-    donationLib.create(body, (err, donation) => {
+    console.log('body',body);
+    donationLib.create(body, (err, result) => {
+      console.log('donation lib create after');
       if (err) {
+        console.log('SEND THAT ERRO');
         res.sendError(err)
         return
       }
 
-      res.status(200).send(donation)
+      res.status(200).send(result)
     })
   })
 })

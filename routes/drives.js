@@ -4,13 +4,16 @@ const router = express.Router()
 const driveLib = require('../lib/drives')
 const donise = require('../lib/donise')
 const { Drive } = require('../models')
+const config = require('../lib/config')
 
 router.get('/:id', (req, res) => {
   console.log('doin it');
   console.log('req.params.id',req.params.id);
   donise(Drive.findById(req.params.id), (err, drive) => {
-      console.log('drive', drive);
-    res.render('drives/view', {drive})
+    res.render('drives/view', {
+      drive,
+      pandaPayJavaScriptSrc: config.pandaPay.javaScriptSrc
+    })
     if (err) {
       res.sendError(err)
       return

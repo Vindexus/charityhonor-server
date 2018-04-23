@@ -22,7 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function (req, res, next) {
   res.sendError = function (err) {
-    res.status(500).send(err)
+    res.status(500).send({err: err.toString()})
   }
   console.log('res.sendError',res.sendError);
   next()
@@ -34,7 +34,6 @@ app.use('/donations', donationRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  console.log('req',req);
   next(createError(404));
 });
 

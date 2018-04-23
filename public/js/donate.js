@@ -2,10 +2,14 @@ window.addEventListener('load', function() {
   Panda.init('pk_test_jDT1TStVcXG5lpFouAxBsg', 'panda_cc_form');
 
   Panda.on('success', function(cardToken) {
-    $('[name=panda_token]').val( cardToken)
-    $('#hiddenForm [name=amount]').val($('#donation-form [name=amount]').val())
-    $('#hiddenForm [name=reddit_username]').val($('#donation-form [name=reddit_username]').val())
-    $('#hiddenForm [name=email]').val($('#donation-form [name=email]').val())
+    console.log('cardToken');
+    if (prompt("Copy this", cardToken)) {
+      
+    }
+    $('[name=pandapay_token]').val(cardToken)
+    $('#hidden-form [name=amount]').val($('#donation-form [name=amount]').val())
+    $('#hidden-form [name=reddit_username]').val($('#donation-form [name=reddit_username]').val())
+    $('#hidden-form [name=email]').val($('#cc-donation-email').val())
     $('#hidden-form').submit()
   });
 
