@@ -17,7 +17,13 @@ module.exports = {
       reddit_username_claimed: {
         type: Sequelize.BOOLEAN
       },
-      amount: {
+      charge_amount: {
+        type: Sequelize.INTEGER
+      },
+      platform_fee: {
+        type: Sequelize.INTEGER
+      },
+      donation_after_fees: {
         type: Sequelize.INTEGER
       },
       pandapay_token: {

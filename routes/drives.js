@@ -7,19 +7,35 @@ const { Drive } = require('../models')
 const config = require('../lib/config')
 
 router.get('/:id', (req, res) => {
-  console.log('doin it');
-  console.log('req.params.id',req.params.id);
-  donise(Drive.findById(req.params.id), (err, drive) => {
-    res.render('drives/view', {
-      drive,
-      pandaPayJavaScriptSrc: config.pandaPay.javaScriptSrc
-    })
+  driveLib.fetchBreakdown(req.params.id, (err, result) => {
     if (err) {
       res.sendError(err)
       return
     }
+
+    const scope = Object.assign(result, {
+      prefillDonation: config.prefillDonation || {},
+      pandaPayJavaScriptSrc: config.pandaPay.javaScriptSrc
+    })
+    res.render('drives/view', scope)
   })
 })
+
+router.get('/claim/:claim', (req, res) => {
+  driveLib.fetchByClaim(req.params.id, (err, result) => {
+    if (err) {
+      res.sendError(err)
+      return
+    }
+
+    const scope = Object.assign(result, {
+      prefillDonation: config.prefillDonation || {},
+      pandaPayJavaScriptSrc: config.pandaPay.javaScriptSrc
+    })
+    res.render('drives/view', scope)
+  })
+})
+
 
 router.post('/', (req, res) => {
   driveLib.create(req.body, (err, result) => {

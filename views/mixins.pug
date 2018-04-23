@@ -1,0 +1,12 @@
+mixin amount (cents)
+  -amount = new Number(cents / 100).toFixed(2)
+  strong= '$' + amount
+
+mixin donation (donation)
+  .donation
+    em Anonymous 
+    | donated
+    | 
+    +amount(donation.charge_amount)
+    | 
+    small= new Date(donation.createdAt).toDateString()

@@ -10,6 +10,6 @@ module.exports = {
       })
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Drives', 'drive_id');
+    return queryInterface.removeColumn('Drives', 'drive_id');
   }
 };

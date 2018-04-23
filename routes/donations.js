@@ -7,6 +7,7 @@ const driveLib = require('../lib/drives')
 router.post('/', (req, res) => {
   const body =  req.body
 
+  //Find the drive they are donating to
   driveLib.fetchById(req.body.drive_id, (err, drive) => {
     if (err) {
       res.sendError(err)
@@ -15,11 +16,8 @@ router.post('/', (req, res) => {
 
     body.eid = drive.panda_destination_eid || ""
     body.drive_id = drive.id
-    console.log('body',body);
     donationLib.create(body, (err, result) => {
-      console.log('donation lib create after');
       if (err) {
-        console.log('SEND THAT ERRO');
         res.sendError(err)
         return
       }
