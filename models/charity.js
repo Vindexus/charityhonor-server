@@ -2,7 +2,7 @@
 
 module.exports = (sequelize, DataTypes) => {
   const Charity = sequelize.define('Charity', {
-    pandapay_destination_eid: DataTypes.STRING,
+    pandapay_ein: DataTypes.STRING,
     name: DataTypes.STRING,
     description: DataTypes.TEXT
   }, {});

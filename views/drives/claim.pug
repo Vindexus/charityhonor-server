@@ -1,0 +1,23 @@
+extends ../layout
+
+include ../mixins.pug
+block content
+  .col-md-8.offset-md-2
+
+    .jumbotron.mb-4
+      h1.display-6 Hello, #{drive.reddit_author}
+      if drive.num_donations > 0
+        p.lead
+          | A total of 
+          +amount(drive.total_amount)
+          |
+          | from previous donations, as well as any future donations, will go to the charity you select right now.
+      else
+        p.lead Any donations made to <a href="/drives/" + drive.id + ">this drive</a> will go to the charity you select right now.
+
+    if !drive.claimed
+      .card
+        .card-header Select Charity
+        .card-body
+          each charity in charities
+            button.btn.btn-primary.btn-block.mb-3= charity.name

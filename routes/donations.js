@@ -14,7 +14,6 @@ router.post('/', (req, res) => {
       return
     }
 
-    body.eid = drive.panda_destination_eid || ""
     body.drive_id = drive.id
     donationLib.create(body, (err, result) => {
       if (err) {

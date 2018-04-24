@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      paypal_destination_eid: {
+      pandapay_ein: {
         type: Sequelize.STRING
       },
       name: {
