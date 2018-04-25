@@ -55,7 +55,7 @@ router.post('/', (req, res) => {
       return
     }
 
-    res.send(result.toJSON())
+    res.send(result)
   })
 })
 
