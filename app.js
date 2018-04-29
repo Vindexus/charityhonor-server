@@ -15,7 +15,7 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-app.use(logger('dev'));
+//app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -25,14 +25,22 @@ app.use(cors())
 
 app.use(function (req, res, next) {
   res.sendError = function (err) {
-    console.log('send an error');
     res.status(500).send({err: err.toString(), info: JSON.stringify(err)})
   }
+
+  res.jsonDone = function (err, json) {
+    if (err) {
+      res.sendError(err)
+      return
+    }
+
+    res.send(json)
+  }
+
   next()
 })
 
 app.use(function(req, res, next) {
-  console.log('allow all');
   res.header("Access-Control-Allow-Origin", "*")
   res.header("Access-Control-Allow-Headers", "X-Requested-With")
   next()
@@ -55,8 +63,10 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  console.log('err');
-  res.render('error');
+  console.log('err', err);
+  res.send({
+    message: err.message || err.toString()
+  })
 });
 
 module.exports = app;

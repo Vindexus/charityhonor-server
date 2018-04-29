@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
   const Drive = sequelize.define('Drive', {
     reddit_id: DataTypes.STRING,
     reddit_author: DataTypes.STRING,
-    reddit_content: DataTypes.STRING,
+    reddit_content: DataTypes.TEXT,
     reddit_title: DataTypes.STRING,
     reddit_type: DataTypes.STRING,
     reddit_subreddit: DataTypes.STRING,

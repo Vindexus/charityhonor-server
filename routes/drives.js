@@ -7,6 +7,17 @@ const donise = require('../lib/donise')
 const { Drive } = require('../models')
 const config = require('../lib/config')
 
+router.get('/latest', (req, res) => {
+  driveLib.fetchLatest((err, result) => {
+    if (err) {
+      res.sendError(err)
+      return
+    }
+
+    res.send(result)
+  })
+})
+
 router.get('/:id', (req, res) => {
   driveLib.fetchBreakdown(req.params.id, (err, result) => {
     if (err) {
@@ -20,7 +31,6 @@ router.get('/:id', (req, res) => {
 
 router.get('/claim/:claim', (req, res) => {
   driveLib.fetchByClaim(req.params.claim, (err, drive) => {
-      console.log('drive', drive);
     if (err) {
       res.sendError(err)
       return
@@ -46,7 +56,6 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  console.log('posting to drive');
   driveLib.create(req.body, (err, result) => {
     console.log('result', result);
     console.log('err',err);

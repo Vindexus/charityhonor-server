@@ -19,7 +19,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       reddit_content: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       reddit_title: {
         type: Sequelize.STRING

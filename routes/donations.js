@@ -26,4 +26,8 @@ router.post('/', (req, res) => {
   })
 })
 
+router.get('/latest', (req, res) => {
+  donationLib.fetchLatestDonations({}, res.jsonDone)
+})
+
 module.exports = router;
