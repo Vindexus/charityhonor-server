@@ -7,8 +7,6 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.TEXT
   }, {});
   Charity.associate = function(models) {
-    // associations can be defined here
-    models.Charity.hasMany(models.Drive, {foreignKey: 'charity_id'})
   };
 
 

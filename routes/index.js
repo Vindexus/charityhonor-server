@@ -5,7 +5,7 @@ const driveLib = require('../lib/drives')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  driveLib.fetchRecents((err, drives) => {
+  driveLib.findRecents((err, drives) => {
     if (err) {
       debug(err)
     }

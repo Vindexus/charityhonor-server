@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     initiator_token: DataTypes.STRING,
     initiator_claimed: DataTypes.BOOLEAN,
     initiator_claimed_at: DataTypes.DATE,
-    charity_id: DataTypes.INTEGER, //TODO: Foreign key obvi
+    charity_id: DataTypes.INTEGER,
     charity_claim_token: DataTypes.STRING,
     charity_claimed_at: DataTypes.STRING,
     num_donations: DataTypes.INTEGER,
@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Drive.associate = function(models) {
     models.Drive.hasMany(models.Donation, {foreignKey: 'drive_id'})
+    models.Drive.belongsTo(models.Charity, {foreignKey: 'charity_id', as: 'charity'})
   };
 
   return Drive;

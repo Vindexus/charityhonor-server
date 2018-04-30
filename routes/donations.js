@@ -8,7 +8,7 @@ router.post('/', (req, res) => {
   const body =  req.body
 
   //Find the drive they are donating to
-  driveLib.fetchById(req.body.drive_id, (err, drive) => {
+  driveLib.findById(req.body.drive_id, (err, drive) => {
     if (err) {
       res.sendError(err)
       return
@@ -27,7 +27,7 @@ router.post('/', (req, res) => {
 })
 
 router.get('/latest', (req, res) => {
-  donationLib.fetchLatestDonations({}, res.jsonDone)
+  donationLib.findLatestDonations({}, res.jsonDone)
 })
 
 module.exports = router;

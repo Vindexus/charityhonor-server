@@ -8,18 +8,46 @@ const { Drive } = require('../models')
 const config = require('../lib/config')
 
 router.get('/latest', (req, res) => {
-  driveLib.fetchLatest((err, result) => {
+  driveLib.findLatest((err, result) => {
     if (err) {
       res.sendError(err)
       return
     }
+
+    result.rows = result.rows.map(driveLib.driveToReturnObject)
+
+    res.send(result)
+  })
+})
+
+router.get('/top', (req, res) => {
+  driveLib.findTop((err, result) => {
+    if (err) {
+      res.sendError(err)
+      return
+    }
+
+    result.rows = result.rows.map(driveLib.driveToReturnObject)
 
     res.send(result)
   })
 })
 
 router.get('/:id', (req, res) => {
-  driveLib.fetchBreakdown(req.params.id, (err, result) => {
+  driveLib.findBreakdown(req.params.id, (err, result) => {
+    if (err) {
+      res.sendError(err)
+      return
+    }
+
+    result.drive = driveLib.driveToReturnObject(result.drive)
+
+    res.send(result)
+  })
+})
+
+router.patch('/token/:token', (req, res) => {
+  driveLib.chooseCharity(req.params.token, req.body.charityId, (err, result) => {
     if (err) {
       res.sendError(err)
       return
@@ -29,21 +57,21 @@ router.get('/:id', (req, res) => {
   })
 })
 
-router.get('/claim/:claim', (req, res) => {
-  driveLib.fetchByClaim(req.params.claim, (err, drive) => {
+router.get('/token/:token', (req, res) => {
+  driveLib.findByToken(req.params.token, (err, drive) => {
     if (err) {
       res.sendError(err)
       return
     }
 
-    charityLib.fetchAll((err, charities) => {
+    charityLib.findAll((err, charities) => {
       if (err) {
         res.sendError(err)
         return
       }
 
       const scope = {
-        drive,
+        drive: driveLib.driveToReturnObject(drive),
         charities
       }
       res.send(scope)
@@ -51,14 +79,9 @@ router.get('/claim/:claim', (req, res) => {
   })
 })
 
-router.get('/', (req, res) => {
-  res.send('get drives')
-})
-
 router.post('/', (req, res) => {
   driveLib.create(req.body, (err, result) => {
-    console.log('result', result);
-    console.log('err',err);
+    console.log(result.charity_claim_token);
     if (err) {
       res.status(500).send({error: err.toString()})
       return
