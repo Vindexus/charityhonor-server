@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "charityhonor",
+    "password": "charityhonor",
+    "database": "charityhonor",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "charityhonor",
+    "password": "charityhonor",
+    "database": "charityhonor",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "charityhonor",
+    "password": "charityhonor",
+    "database": "charityhonor",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}

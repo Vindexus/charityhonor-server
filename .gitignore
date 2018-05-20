@@ -1,4 +1,3 @@
 node_modules/*
 config/*
-!config/example.js
-!config/postgres.example.json
+!config/*.example.*
